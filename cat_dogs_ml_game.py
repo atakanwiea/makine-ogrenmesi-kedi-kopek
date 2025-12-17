@@ -10,8 +10,13 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
 import math
 
 # --- AYARLAR ---
-ANA_KLASOR = r"C:\Users\user\Desktop\makine_ogrenme"
-TRAIN_PATH = os.path.join(ANA_KLASOR, 'training_set')
+# Öncelikle çalıştığımız script'in bulunduğu klasöre göre göreli eğitim yolunu kullan
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TRAIN_PATH = os.path.join(BASE_DIR, 'training_set', 'training_set')
+# Eğer repo içindeki yol yoksa eski (dev) sabit yola geri dön
+if not os.path.exists(TRAIN_PATH):
+    ANA_KLASOR = r"C:\Users\user\Desktop\makine_ogrenme"
+    TRAIN_PATH = os.path.join(ANA_KLASOR, 'training_set')
 
 IMG_SIZE_ML = 64
 GRID_SIZE = 4
@@ -225,7 +230,7 @@ class GameApp:
 
             # 3. Hepsini birlikte eğit (Batch Training)
             # Böylece model "sadece bunu öğren" demez, "bunu öğren ama eskileri de hatırla" der.
-            self.model.fit(X_batch, y_batch, epochs=1, verbose=0)
+            self.model.fit(X_batch, y_batch, epochs=5, verbose=0)
 
             self.create_particles(click_x, click_y, ["Düzeltildi", "♻️"], "orange")
             self.canvas.create_rectangle(cell_x, cell_y, cell_x + CELL_SIZE, cell_y + CELL_SIZE, outline="orange",
@@ -277,6 +282,7 @@ class GameApp:
 
 if __name__ == "__main__":
     print("--- SİSTEM HAZIRLANIYOR ---")
+    print(f"Aranacak eğitim klasörü: {TRAIN_PATH}")
     X_all, y_all = load_data_simple(TRAIN_PATH)
 
     if len(X_all) == 0:
@@ -295,7 +301,7 @@ if __name__ == "__main__":
 
         print(f"Model eğitiliyor ({len(X_train)} resim)...")
         my_model = create_model()
-        my_model.fit(X_train, y_train, epochs=1, verbose=1)
+        my_model.fit(X_train, y_train, epochs=5, verbose=1)
 
         print("Panel Açılıyor!")
         root = tk.Tk()
