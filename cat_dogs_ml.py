@@ -9,8 +9,8 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
 # AYARLAR (YENİ KLASÖR İSMİNE GÖRE GÜNCELLENDİ)
 # ==============================================================================
 # "makine_ogrenme" klasörüne göre yolları sabitliyoruz.
-TRAIN_PATH = r"C:\Users\user\Desktop\makine_ogrenme\training_set"
-TEST_PATH = r"C:\Users\user\Desktop\makine_ogrenme\test_set"
+TRAIN_PATH = r"C:\Users\ataka\Desktop\MachineLearningProject\training_set\training_set"
+TEST_PATH = r"C:\Users\ataka\Desktop\MachineLearningProject\test_set\test_set"
 
 CATEGORIES = ['cats', 'dogs']
 IMG_SIZE = 64  # Resim boyutu
